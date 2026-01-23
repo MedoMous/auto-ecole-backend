@@ -32,11 +32,22 @@ public class TheorySession {
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin instructor;
 
+    @Column(nullable = false)
     private LocalDateTime scheduledAt;
 
+    @Column(nullable = false)
     private int duration;
 
+    @Column(nullable = false)
     private int maxCapacity;
+
+    @Column(nullable = false)
+    private int currentCapacity = 0;
+
+    @Column(nullable = false)
+    private String location;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private SessionStatus status;
 
@@ -50,7 +61,7 @@ public class TheorySession {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-
+    @Column(nullable = false)
     @UpdateTimestamp
     private Date updatedAt;
 

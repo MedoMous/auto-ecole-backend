@@ -21,8 +21,8 @@ public class DrivingSession {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(
-            name = "driving_session_seq" ,
-            sequenceName = "driving_session_seq_name" ,
+            name = "driving_session_seq",
+            sequenceName = "driving_session_seq_name",
             allocationSize = 1
     )
     private Long id;
@@ -56,9 +56,9 @@ public class DrivingSession {
 
     @Column(nullable = false)
     @CreationTimestamp
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
     @CreationTimestamp
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 }

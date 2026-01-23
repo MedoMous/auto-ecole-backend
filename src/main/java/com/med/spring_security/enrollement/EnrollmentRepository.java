@@ -1,6 +1,5 @@
 package com.med.spring_security.enrollement;
 
-import com.med.spring_security.payment.PaymentStatus;
 import com.med.spring_security.user.student.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,4 +14,11 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment , Long> {
     List<Enrollment> findWithOutStandingPayments();
     List<Enrollment> findByStudent(Student student);
     List<Enrollment> findByStatus(EnrollmentStatus status);
+    List<Enrollment> findByStudentAndStatus(
+            Student student,
+            EnrollmentStatus status);
+    List<Enrollment> findByStudentIdAndStatus(
+            Long studentId ,
+            EnrollmentStatus status);
+    List<Enrollment> findByTheorySessionsId(Long theorySessionId);
 }

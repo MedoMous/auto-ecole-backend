@@ -1,4 +1,6 @@
 package com.med.spring_security.license;
 
-public interface LicenseRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LicenseRepository extends JpaRepository<License , Long> {
 }

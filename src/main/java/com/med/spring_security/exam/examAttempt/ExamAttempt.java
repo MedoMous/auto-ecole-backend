@@ -68,9 +68,9 @@ public class ExamAttempt {
 
     @CreationTimestamp
     @Column(nullable = false)
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @CreationTimestamp
     @Column(nullable = false)
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 }

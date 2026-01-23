@@ -3,6 +3,7 @@ package com.med.spring_security.user.admin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.med.spring_security.payment.Payment;
 import com.med.spring_security.session.driving.DrivingSession;
+import com.med.spring_security.session.driving.request.DrivingSessionRequestDTO;
 import com.med.spring_security.session.theory.TheorySession;
 import com.med.spring_security.user.User;
 import jakarta.persistence.*;
@@ -46,5 +47,12 @@ public class Admin extends User {
     )
     @JsonIgnore
     private List<Payment> payments;
+
+    @OneToMany(
+            mappedBy = "approvedBy",
+            fetch = FetchType.LAZY
+    )
+    @JsonIgnore
+    private List<DrivingSessionRequestDTO>  drivingSessionRequestDTOs;
 
 }

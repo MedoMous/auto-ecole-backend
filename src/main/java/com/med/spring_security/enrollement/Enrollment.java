@@ -6,6 +6,7 @@ import com.med.spring_security.exam.examAttempt.ExamAttempt;
 import com.med.spring_security.license.License;
 import com.med.spring_security.payment.Payment;
 import com.med.spring_security.session.driving.DrivingSession;
+import com.med.spring_security.session.driving.request.DrivingSessionRequestDTO;
 import com.med.spring_security.session.theory.TheorySession;
 import com.med.spring_security.user.student.Student;
 import jakarta.persistence.*;
@@ -87,13 +88,11 @@ public class Enrollment {
     @JsonIgnore
     private List<Payment> payments;
 
-    @ManyToMany(
-            fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "theory_session_enrollment",
             joinColumns = @JoinColumn(name = "enrollment_id"),
-            inverseJoinColumns = @JoinColumn(name = "theory_session_id"
-            )
+            inverseJoinColumns = @JoinColumn(name = "theory_session_id")
     )
     @JsonIgnore
     private List<TheorySession> theorySessions;
@@ -117,4 +116,11 @@ public class Enrollment {
     @JsonIgnore
     private List<ExamAttempt> examAttempts;
 
+    @OneToMany(
+            mappedBy = "enrollment",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JsonIgnore
+    private List<DrivingSessionRequestDTO>  drivingSessionRequestDTO;
 }
