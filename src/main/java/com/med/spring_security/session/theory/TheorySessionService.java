@@ -21,14 +21,23 @@ import org.slf4j.LoggerFactory;
 @Service
 
 public class TheorySessionService {
+
+    private final TheorySessionRepository repository;
+    private final EnrollmentRepository enrollmentRepository;
+    private final StudentRepository studentRepository;
+    private final AdminRepository adminRepository;
+
     @Autowired
-    private TheorySessionRepository repository;
-    @Autowired
-    private EnrollmentRepository enrollmentRepository;
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private AdminRepository adminRepository;
+    public TheorySessionService(
+            TheorySessionRepository repository,
+            EnrollmentRepository enrollmentRepository,
+            StudentRepository studentRepository,
+            AdminRepository adminRepository) {
+        this.repository = repository;
+        this.enrollmentRepository = enrollmentRepository;
+        this.studentRepository = studentRepository;
+        this.adminRepository = adminRepository;
+    }
 
     private static final Logger log = LoggerFactory.getLogger(TheorySessionService.class);
 
@@ -228,5 +237,9 @@ public class TheorySessionService {
                 adminId, sessionId, oldSchedule, newSchedule);
 
         return session;  // ← Return the SAME session object (now updated)
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    public TheorySession createTheorySession(TheorySession theorySession){
+        return repository.save(theorySession);
     }
 }

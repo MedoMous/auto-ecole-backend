@@ -26,7 +26,7 @@ public class Engineer extends User {
     private String certificationNumber;
 
     @OneToMany(
-            mappedBy = "engineerId",
+            mappedBy = "engineer",
             fetch = FetchType.LAZY
     )
     @JsonIgnore

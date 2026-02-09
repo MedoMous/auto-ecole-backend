@@ -5,6 +5,7 @@ import com.med.spring_security.exam.examAttempt.ExamAttempt;
 import com.med.spring_security.user.engineer.Engineer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,18 +16,22 @@ import java.util.List;
 @Entity
 @Table(name = "exams")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "exam_seq" , sequenceName = "exam_seq_name" , allocationSize = 1)
+    @SequenceGenerator(
+            name = "exam_seq" ,
+            sequenceName = "exam_seq_name" ,
+            allocationSize = 1)
     private Long id;
     @Enumerated(EnumType.STRING)
     private ExamStage type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Engineer engineerId;
+    private Engineer engineer;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JsonIgnore

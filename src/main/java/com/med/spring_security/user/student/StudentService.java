@@ -97,16 +97,21 @@ public class StudentService {
                                 .stream())
                 .toList();
     }
-    public List<TheorySession> getMyTheorySessions(Long id){
+    public List<TheorySession> getMyTheorySessions(Long id , Long enrollmentId){
         Student student = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Student not found!"));
 
         List<Enrollment> enrollments = enrollmentRepository.findByStudent(student);
+        if(enrollments.isEmpty()){
+            throw new RuntimeException("There's no enrollment with this student id:" + id);
+        }
+        Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
+                .orElseThrow(() -> new RuntimeException("There's no enrollment with this id:" + enrollmentId));
+        if(!enrollments.contains(enrollment)){
+            throw new RuntimeException("There's no enrollment with this id:" + enrollmentId);
+        }
+        return enrollment.getTheorySessions();
 
-        return enrollments.stream()
-                .flatMap(enrollment ->
-                        theorySessionRepository.findByEnrollment(enrollment).stream())
-                .toList();
     }
     public DrivingSession registerDrivingSession(DrivingSession session) throws Exception{
 

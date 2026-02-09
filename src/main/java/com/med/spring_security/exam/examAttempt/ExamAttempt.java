@@ -6,6 +6,7 @@ import com.med.spring_security.exam.ExamStage;
 import com.med.spring_security.user.engineer.Engineer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "exam_attempt")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExamAttempt {
@@ -42,7 +44,7 @@ public class ExamAttempt {
     private Enrollment enrollment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "evualted_by_engineer_id")
+    @JoinColumn(name = "evualated_by_engineer_id")
     private Engineer engineer;
 
     @Enumerated(EnumType.STRING)

@@ -7,18 +7,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment , Long> {
-    List<Enrollment> findByRemainingAmountGreaterThan(
-            BigDecimal remainingAmount,
-            EnrollmentStatus status
-    );
-    List<Enrollment> findWithOutStandingPayments();
     List<Enrollment> findByStudent(Student student);
-    List<Enrollment> findByStatus(EnrollmentStatus status);
     List<Enrollment> findByStudentAndStatus(
             Student student,
             EnrollmentStatus status);
     List<Enrollment> findByStudentIdAndStatus(
             Long studentId ,
             EnrollmentStatus status);
-    List<Enrollment> findByTheorySessionsId(Long theorySessionId);
 }

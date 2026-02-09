@@ -1,8 +1,8 @@
 package com.med.spring_security.session.theory;
 
 import com.med.spring_security.enrollement.Enrollment;
+import com.med.spring_security.enrollement.EnrollmentStatus;
 import com.med.spring_security.user.admin.Admin;
-import com.med.spring_security.user.student.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TheorySessionRepository extends JpaRepository<TheorySession, Long> {
-    public List<TheorySession> findByEnrollment(Enrollment enrollment);
-    public TheorySession findByScheduledAt(LocalDateTime scheduledAt);
-    List<TheorySession> findByInstructor(Admin instructor);
+    TheorySession findByScheduledAt(LocalDateTime scheduledAt);
 
     @Query("SELECT ts FROM TheorySession ts " +
             "WHERE ts.instructor = :instructor " +
@@ -23,5 +21,14 @@ public interface TheorySessionRepository extends JpaRepository<TheorySession, Lo
             @Param("instructor") Admin instructor,
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end
+    );
+
+    @Query("SELECT ts FROM TheorySession ts " +
+            "JOIN FETCH ts.enrollments e " +
+            "JOIN FETCH e.student s " +
+            "WHERE ts.instructor.id = :instructorId " +
+            "AND e.status = 'ACTIVE'")
+    List<TheorySession> findByInstructorIdWithActiveEnrollment(
+            @Param("instructorId") Long instructorId
     );
 }

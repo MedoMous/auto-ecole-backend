@@ -55,8 +55,9 @@ public class StudentController {
     //Theory Sessions matters
     @GetMapping("/search/theory_sessions/{id}")
     public List<TheorySession> getTheorySessions(
-            @PathVariable Long id){
-        return studentService.getMyTheorySessions(id);
+            @PathVariable Long id,
+            @RequestParam Long enrollmentId){
+        return studentService.getMyTheorySessions(id , enrollmentId);
     }
     @PostMapping("/theory_sessions")
     public TheorySessionRegistrationResponseDTO registerForTheorySession(
@@ -87,7 +88,7 @@ public class StudentController {
 
     @PostMapping("/driving_sessions")
     public DrivingSessionRequestDTO requestDrivingSession(
-            @PathVariable Long id,
+            @RequestBody Long id,
             @RequestParam LocalDateTime scheduledTime,
             @RequestParam String preferredLocation,
             @RequestParam String notes){
